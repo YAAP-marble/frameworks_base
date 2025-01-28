@@ -150,10 +150,14 @@ public class FlashlightStrengthTile extends FlashlightTile implements TouchableQ
             mCameraId = getCameraId();
             CameraCharacteristics characteristics =
                     mCameraManager.getCameraCharacteristics(mCameraId);
-            mSupportsSettingFlashLevel =
-                    flashlightController.isAvailable()
-                            && mCameraId != null
-                            && characteristics.get(FLASHLIGHT_MAX_BRIGHTNESS_CHARACTERISTIC) > 1;
+	    if (!mContext.getResources().getBoolean(R.bool.config_flashLevelSupportForce)) {
+                mSupportsSettingFlashLevel =
+                        flashlightController.isAvailable()
+                                && mCameraId != null
+                                && characteristics.get(FLASHLIGHT_MAX_BRIGHTNESS_CHARACTERISTIC) > 1;
+            } else {
+                mSupportsSettingFlashLevel = true;
+            }
             mMaxLevel = (int) characteristics.get(FLASHLIGHT_MAX_BRIGHTNESS_CHARACTERISTIC);
             mDefaultLevel = (int) characteristics.get(FLASHLIGHT_DEFAULT_BRIGHTNESS_CHARACTERISTIC);
         } catch (CameraAccessException | NullPointerException e) {

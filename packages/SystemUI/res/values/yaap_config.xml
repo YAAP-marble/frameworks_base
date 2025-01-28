@@ -80,4 +80,7 @@
           <item>2047,46</item>
           <item>4095,0</item>
     </string-array>
+
+    <!-- Force flash level adjustment in flashlight qs tile -->
+    <bool name="config_flashLevelSupportForce">false</bool>
 </resources>
